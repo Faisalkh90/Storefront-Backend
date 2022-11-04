@@ -18,12 +18,13 @@ export class ProductsModel {
     }
   }
 
-  //display all products
-  static async getAllProducts(): Promise<IProduct[]> {
+  //display all products and store it in an array
+  static async getAllProducts(): Promise<object[]> {
     try {
       const selector = ['id', 'name', 'price'];
       const result = await Common.dbFetch(ProductsModel.table, null, selector);
-      return result as IProduct[];
+      // @ts-ignore
+      return result;
     } catch (e) {
       throw new Error(`Cannot get all products from ${this.table}`);
     }

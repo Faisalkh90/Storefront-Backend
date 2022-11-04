@@ -11,12 +11,16 @@ export const createProduct = async (
 ) => {
   try {
     const product = await ProductModel.createProduct(req.query);
-    //send the response
-    res.send({
-      status: 201,
-      message: 'Product created successfully',
-      Item: product,
-    });
+    if (product) {
+      //send the response
+      res.send({
+        status: 201,
+        message: 'Product created successfully',
+        Item: product,
+      });
+    } else {
+      res.status(404).send({ message: `Something went wrong ${req.params}` });
+    }
   } catch (e) {
     next(e);
   }
