@@ -2,6 +2,6 @@
 create table if not exists order_products(
     id serial primary key,
     quantity integer,
-    order_id bigint references "order"(id),
+    order_id bigint references orders(id),
     product_id bigint references product(id)
 );
