@@ -33,17 +33,41 @@ export const getOne = async (
   next: express.NextFunction
 ) => {
   try {
-    const product = await orderModel.getOneOrder(req.params.id);
-    if (product) {
+    const orders = await orderModel.getOneOrder(req.params.id);
+    if (orders) {
       return res.send({
         status: 201,
         message: 'Order founded',
-        item: product,
+        item: orders,
       });
     } else {
       return res.send({
         status: 404,
         message: `Cannot found id: ${req.params.id}`,
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const getOneByUser = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const orders = await orderModel.getOneOrderByUserID(req.params.user_id);
+    if (orders) {
+      return res.send({
+        status: 201,
+        message: 'Order founded',
+        item: orders,
+      });
+    } else {
+      return res.send({
+        status: 404,
+        message: `Cannot found id: ${req.params.user_id}`,
       });
     }
   } catch (e) {

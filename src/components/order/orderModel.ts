@@ -29,6 +29,17 @@ export class OrdersModel {
     }
   }
 
+  //get specific order for the user id
+  static async getOneOrderByUserID(user_id: string): Promise<object[]> {
+    try {
+      const result = await Common.dbFetch(this.table, { user_id });
+      // @ts-ignore
+      return result;
+    } catch (e) {
+      throw new Error(`Cannot get id ${user_id} order from ${this.table}`);
+    }
+  }
+
   static async getAllOrders(): Promise<object[]> {
     try {
       const selector = ['id', 'quantity', 'status', 'user_id', 'product_id'];
