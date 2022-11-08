@@ -8,9 +8,11 @@ const config = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  salt: process.env.SALT_ROUNDS,
+  pepper: process.env.BCRYPT_PASS,
 };
 
-if (process.env.NODE_ENV == 'test'){
+if (process.env.NODE_ENV == 'test') {
   config.database = process.env.DB_TEST_NAME;
 }
 
@@ -19,17 +21,22 @@ if (process.env.NODE_ENV == 'test'){
   env variables are passed or not when the server starts
   refer to checking-env-variables.ts for reference
 */
-const sequelize = new Sequelize(config.database!, config.username!, config.password, {
-  host: config.host,
-  dialect: 'postgres',
-  logging: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-});
+const sequelize = new Sequelize(
+  config.database!,
+  config.username!,
+  config.password,
+  {
+    host: config.host,
+    dialect: 'postgres',
+    logging: false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
+  }
+);
 
 const startDbConnection = async () => {
   try {
@@ -41,4 +48,4 @@ const startDbConnection = async () => {
   }
 };
 
-export { sequelize, startDbConnection};
+export { sequelize, startDbConnection, config };
