@@ -1,6 +1,13 @@
 import express, { NextFunction, Request, Response } from 'express';
 import UserModel from './userModel';
+import { config } from '../../../config/sequelize';
+import bcrypt from 'bcrypt';
 
+//hash function to add salt 10 round and pepper
+function hash(pass: string): string {
+  let hashed = bcrypt.hashSync(`${pass}${config.pepper}`, bcrypt.genSaltSync());
+  return hashed;
+}
 const user = new UserModel();
 
 //function to create users
@@ -11,8 +18,13 @@ export const create = async (
   next: NextFunction
 ) => {
   try {
-    const user = await UserModel.createUser(req.query);
-
+    let info: object = {
+      firstname: req.query.firstname,
+      lastname: req.query.lastname,
+      email: req.query.email,
+      password: hash(String(req.query.password)),
+    };
+    const user = await UserModel.createUser(info);
     if (user) {
       //send the response
       res.send({
@@ -21,7 +33,7 @@ export const create = async (
         user: user,
       });
     } else {
-      res.status(404).send({ message: `Something went wrong ${req.params}` });
+      res.status(404).send({ message: `Something went wrong ${req.query}` });
     }
   } catch (err) {
     next();

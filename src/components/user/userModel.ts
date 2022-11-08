@@ -1,11 +1,11 @@
 import Common from '../../utils/common';
 import { IUser } from './user.interfaces';
+
 export class UserModel {
   static table: string = 'users';
-
   //create user
 
-  static async createUser(user: Object): Promise<IUser | null> {
+  static async createUser(user: object): Promise<IUser | null> {
     try {
       const sql = await Common.dbInsertion(this.table, user);
       if (sql) {
