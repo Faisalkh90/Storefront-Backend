@@ -6,7 +6,7 @@ import orderRoutes from './order/orderRoutes';
 const apiRouter = express.Router();
 
 apiRouter.use(userRouter);
-apiRouter.use(productRouter);
-apiRouter.use(userRouter1);
-apiRouter.use(orderRoutes);
+apiRouter.use('/products', productRouter);
+apiRouter.use('/userc', userRouter1);
+apiRouter.use('/order', orderRoutes);
 export default apiRouter;

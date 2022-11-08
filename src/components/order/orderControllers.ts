@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import OrdersModel from './orderModel';
-import ProductModel from '../product/productModel';
 import orderModel from './orderModel';
+import UserModel from './../user/userModel';
 
 //create order function
 export const create = async (
@@ -57,12 +57,14 @@ export const getOneByUser = async (
   next: express.NextFunction
 ) => {
   try {
-    const orders = await orderModel.getOneOrderByUserID(req.params.user_id);
+    console.log(req.params.user_id, req.params.id);
+    const orders = await orderModel.getOneOrderByUserID(req.params.id);
     if (orders) {
       return res.send({
         status: 201,
         message: 'Order founded',
         item: orders,
+        user: await UserModel.getOneUser(req.params.id),
       });
     } else {
       return res.send({

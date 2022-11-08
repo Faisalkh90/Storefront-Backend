@@ -1,11 +1,11 @@
 import Common from '../../utils/common';
-
+import { IUser } from './user.interfaces';
 export class UserModel {
   static table: string = 'users';
 
   //create user
 
-  static async createUser(user: Object): Promise<UserModel | null> {
+  static async createUser(user: Object): Promise<IUser | null> {
     try {
       const sql = await Common.dbInsertion(this.table, user);
       if (sql) {
@@ -21,7 +21,7 @@ export class UserModel {
     }
   }
 
-  static async getAllUsers(): Promise<object[]> {
+  static async getAllUsers(): Promise<IUser[]> {
     try {
       const selector = ['id', 'firstname', 'lastname', 'email', 'created_at'];
       const result = await Common.dbFetch(this.table, null, selector);

@@ -21,7 +21,7 @@ export class ProductsModel {
   //display all products and store it in an array
   static async getAllProducts(): Promise<object[]> {
     try {
-      const selector = ['id', 'name', 'price'];
+      const selector = ['id', 'name', 'price', 'description'];
       const result = await Common.dbFetch(ProductsModel.table, null, selector);
       // @ts-ignore
       return result;

@@ -42,7 +42,7 @@ export class OrdersModel {
 
   static async getAllOrders(): Promise<object[]> {
     try {
-      const selector = ['id', 'quantity', 'status', 'user_id', 'product_id'];
+      const selector = ['id', 'quantity', 'status', 'user_id'];
       const result = await Common.dbFetch(this.table, null, selector);
       // @ts-ignore
       return result;

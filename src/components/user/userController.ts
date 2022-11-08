@@ -55,7 +55,7 @@ export const getOne = async (
     if (user) {
       return res.send({
         status: 201,
-        message: 'Product founded',
+        message: 'User founded',
         user: user,
       });
     } else {
