@@ -3,9 +3,12 @@ import UserModel from './userModel';
 import { config } from '../../../config/sequelize';
 import bcrypt from 'bcrypt';
 
-//hash function to add salt 10 round and pepper
+//hash function to add salt rounds and salt
 function hash(pass: string): string {
-  let hashed = bcrypt.hashSync(`${pass}${config.pepper}`, bcrypt.genSaltSync());
+  let hashed = bcrypt.hashSync(
+    `${pass}${config.salt}`,
+    parseInt(config.saltRounds as string)
+  );
   return hashed;
 }
 const user = new UserModel();

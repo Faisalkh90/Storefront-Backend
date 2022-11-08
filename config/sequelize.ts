@@ -8,8 +8,8 @@ const config = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  salt: process.env.SALT_ROUNDS,
-  pepper: process.env.BCRYPT_PASS,
+  saltRounds: process.env.SALT_ROUNDS,
+  salt: process.env.SALT_PASS,
 };
 
 if (process.env.NODE_ENV == 'test') {
