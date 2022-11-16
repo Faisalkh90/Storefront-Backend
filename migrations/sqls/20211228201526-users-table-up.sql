@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "users" (
+CREATE TABLE "users" (
   "id" SERIAL,
   "firstname" VARCHAR(255) NOT NULL,
   "lastname" VARCHAR(255) NOT NULL,
