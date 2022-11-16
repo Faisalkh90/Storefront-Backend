@@ -10,6 +10,7 @@ const config = {
   database: process.env.DB_NAME,
   saltRounds: process.env.SALT_ROUNDS,
   salt: process.env.SALT_PASS,
+  JWT: process.env.JWT_KEY,
 };
 
 if (process.env.NODE_ENV == 'test') {
