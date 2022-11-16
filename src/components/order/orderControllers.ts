@@ -19,7 +19,11 @@ export const create = async (
         Item: order,
       });
     } else {
-      res.status(404).send({ message: `Something went wrong ${req.params}` });
+      res
+        .status(404)
+        .send({
+          message: `Something went wrong in the query, please try again`,
+        });
     }
   } catch (e) {
     next(e);
@@ -85,11 +89,18 @@ export const getAll = async (
 ) => {
   try {
     const orders = await OrdersModel.getAllOrders();
-    res.send({
-      status: 201,
-      message: 'Orders retrieved successfully',
-      items: orders,
-    });
+    if (orders?.length > 0) {
+      res.send({
+        status: 201,
+        message: 'Orders retrieved successfully',
+        items: orders,
+      });
+    } else {
+      res.send({
+        status: 201,
+        message: 'There is no orders',
+      });
+    }
   } catch (e) {
     next(e);
   }

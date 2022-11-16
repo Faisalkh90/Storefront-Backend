@@ -1,10 +1,11 @@
 import Common from '../../utils/common';
+import { IOrder } from './orderType';
 
 export class OrdersModel {
   static table: string = 'orders';
 
   //create an order
-  static async createOrder(order: object): Promise<OrdersModel | null> {
+  static async createOrder(order: object): Promise<IOrder | null> {
     try {
       const sql = await Common.dbInsertion(this.table, order);
       //checking
@@ -18,11 +19,13 @@ export class OrdersModel {
     }
   }
 
-  static async getOneOrder(id: string): Promise<Object | undefined> {
+  static async getOneOrder(id: string): Promise<IOrder | null> {
     try {
       const result = await Common.dbFetch(this.table, { id });
-      if (result != undefined) {
-        return result[0];
+      if (result) {
+        return result[0] as IOrder;
+      } else {
+        return null;
       }
     } catch (e) {
       throw new Error(`Cannot get id ${id} order from ${this.table}`);
@@ -30,22 +33,20 @@ export class OrdersModel {
   }
 
   //get specific order for the user id
-  static async getOneOrderByUserID(user_id: string): Promise<object[]> {
+  static async getOneOrderByUserID(user_id: string): Promise<IOrder[]> {
     try {
       const result = await Common.dbFetch(this.table, { user_id });
-      // @ts-ignore
-      return result;
+      return result as IOrder[];
     } catch (e) {
       throw new Error(`Cannot get id ${user_id} order from ${this.table}`);
     }
   }
 
-  static async getAllOrders(): Promise<object[]> {
+  static async getAllOrders(): Promise<IOrder[]> {
     try {
       const selector = ['id', 'quantity', 'status', 'user_id'];
       const result = await Common.dbFetch(this.table, null, selector);
-      // @ts-ignore
-      return result;
+      return result as IOrder[];
     } catch (e) {
       throw new Error(`Cannot get all products from ${this.table}`);
     }

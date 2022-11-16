@@ -19,23 +19,24 @@ export class ProductsModel {
   }
 
   //display all products and store it in an array
-  static async getAllProducts(): Promise<object[]> {
+  static async getAllProducts(): Promise<IProduct[]> {
     try {
       const selector = ['id', 'name', 'price', 'description'];
       const result = await Common.dbFetch(ProductsModel.table, null, selector);
-      // @ts-ignore
-      return result;
+      return result as IProduct[];
     } catch (e) {
       throw new Error(`Cannot get all products from ${this.table}`);
     }
   }
 
   //get one specific product by id
-  static async getOneProduct(id: string): Promise<object | undefined> {
+  static async getOneProduct(id: string): Promise<IProduct | null> {
     try {
       const result = await Common.dbFetch(ProductsModel.table, { id });
-      if (result != undefined) {
-        return result[0];
+      if (result?.length) {
+        return result[0] as IProduct;
+      } else {
+        return null;
       }
     } catch (e) {
       throw new Error(`Cannot get id ${id} product from ${this.table}`);

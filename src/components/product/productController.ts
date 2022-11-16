@@ -33,11 +33,19 @@ export const getAllProducts = async (
 ) => {
   try {
     const products = await ProductModel.getAllProducts();
-    res.send({
-      status: 201,
-      message: 'Products retrieved successfully',
-      items: products,
-    });
+    //check if empty
+    if (products?.length > 0) {
+      res.send({
+        status: 201,
+        message: 'Products retrieved successfully',
+        items: products,
+      });
+    } else {
+      res.send({
+        status: 201,
+        message: 'There are no products',
+      });
+    }
   } catch (e) {
     next(e);
   }
