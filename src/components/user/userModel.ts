@@ -69,7 +69,11 @@ export class UserModel {
             'email',
             'created_at',
           ];
-          const userFound = await Common.dbFetch(this.table, null, selector);
+          const userFound = await Common.dbFetch(
+            this.table,
+            { email },
+            selector
+          );
           if (userFound?.length) {
             return userFound[0] as IUser;
           }

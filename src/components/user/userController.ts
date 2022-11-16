@@ -108,7 +108,7 @@ export const authenticateUser = async (
       res.send({
         status: 200,
         message: 'User verified successfully',
-        //... means inserting the elements
+        //... means Inserting the elements together
         user: { ...checkUser, userToken },
       });
     } else {
