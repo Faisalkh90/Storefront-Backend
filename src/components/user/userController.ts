@@ -2,9 +2,10 @@ import express, { NextFunction, Request, Response } from 'express';
 import UserModel from './userModel';
 import { config } from '../../../config/sequelize';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 //hash function to add salt rounds and salt
-function hash(pass: string): string {
+export function hash(pass: string): string {
   let hashed = bcrypt.hashSync(
     `${pass}${config.salt}`,
     parseInt(config.saltRounds as string)
@@ -50,11 +51,19 @@ export const getAll = async (
 ) => {
   try {
     const users = await UserModel.getAllUsers();
-    res.send({
-      status: 201,
-      message: 'Users retrieved successfully',
-      users: users,
-    });
+    if (users.length > 0) {
+      res.send({
+        status: 201,
+        message: 'Users retrieved successfully',
+        users: users,
+      });
+    } else {
+      res.send({
+        status: 201,
+        message: 'There are no users',
+        users: users,
+      });
+    }
   } catch (e) {
     next(e);
   }
@@ -67,7 +76,7 @@ export const getOne = async (
 ) => {
   try {
     const user = await UserModel.getOneUser(req.params.id);
-    if (user) {
+    if (user != null) {
       return res.send({
         status: 201,
         message: 'User founded',
@@ -77,6 +86,35 @@ export const getOne = async (
       return res.send({
         status: 404,
         message: `Cannot found id: ${req.params.id}`,
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const authenticateUser = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const email = String(req.query.email);
+    const password = String(req.query.password);
+    const checkUser = await UserModel.authenticate(email, password);
+    if (checkUser) {
+      // pass payload and signature that I made in .env
+      const userToken = jwt.sign({ checkUser }, String(config.JWT));
+      res.send({
+        status: 200,
+        message: 'User verified successfully',
+        //... means inserting the elements
+        user: { ...checkUser, userToken },
+      });
+    } else {
+      res.send({
+        status: 404,
+        message: 'Unauthorized user , please try again',
       });
     }
   } catch (e) {
