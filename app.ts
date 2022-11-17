@@ -1,9 +1,7 @@
 import express, { Request, Response } from 'express';
-
 // to pass the async errors to the error handler automatically
 // without the need to use next() with every route
 import 'express-async-errors';
-
 import { errorHandler } from './src/middlewares/error-handler';
 import apiRouter from './src/components/routes';
 import morganMiddleware from './src/middlewares/morgan';
