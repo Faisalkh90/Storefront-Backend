@@ -19,11 +19,9 @@ export const create = async (
         Item: order,
       });
     } else {
-      res
-        .status(404)
-        .send({
-          message: `Something went wrong in the query, please try again`,
-        });
+      res.status(404).send({
+        message: `Something went wrong in the query, please try again`,
+      });
     }
   } catch (e) {
     next(e);
@@ -63,7 +61,8 @@ export const getOneByUser = async (
   try {
     console.log(req.params.user_id, req.params.id);
     const orders = await orderModel.getOneOrderByUserID(req.params.id);
-    if (orders) {
+    console.log(orders);
+    if (orders.length > 0) {
       return res.send({
         status: 201,
         message: 'Order founded',
@@ -73,7 +72,7 @@ export const getOneByUser = async (
     } else {
       return res.send({
         status: 404,
-        message: `Cannot found id: ${req.params.user_id}`,
+        message: `Cannot found id: ${req.params.id}`,
       });
     }
   } catch (e) {
@@ -99,6 +98,54 @@ export const getAll = async (
       res.send({
         status: 201,
         message: 'There is no orders',
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const updateOneOrder = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const orders = await OrdersModel.updateOrder(req.body);
+    if (orders) {
+      res.send({
+        status: 201,
+        message: 'Orders updated successfully',
+        items: orders,
+      });
+    } else {
+      res.send({
+        status: 201,
+        message: 'Cannot update order',
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const deleteOneOrder = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const orders = await OrdersModel.deleteOrder(req.params.id);
+    if (orders) {
+      res.send({
+        status: 201,
+        message: 'Orders deleted successfully',
+        items: orders,
+      });
+    } else {
+      res.send({
+        status: 201,
+        message: 'Cannot delete order',
       });
     }
   } catch (e) {

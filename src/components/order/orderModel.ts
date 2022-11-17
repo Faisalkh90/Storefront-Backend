@@ -1,5 +1,6 @@
 import Common from '../../utils/common';
 import { IOrder } from './orderType';
+import db from '../../database';
 
 export class OrdersModel {
   static table: string = 'orders';
@@ -51,5 +52,34 @@ export class OrdersModel {
       throw new Error(`Cannot get all products from ${this.table}`);
     }
   }
+
+  //update order
+  static async updateOrder(order: IOrder): Promise<IOrder> {
+    try {
+      const conn = await db.connect();
+      const sql = `UPDATE orders SET quantity =$1 , status =$2 , user_id =$3 WHERE id = $4  RETURNING * `;
+      const values = [order.quantity, order.status, order.user_id, order.id];
+      const result = await db.query(sql, values);
+      conn.release();
+      return result.rows[0];
+    } catch (e) {
+      throw new Error(`Cannot update order from ${this.table}`);
+    }
+  }
+
+  // delete order
+  static async deleteOrder(id: string): Promise<IOrder> {
+    try {
+      const conn = await db.connect();
+      const sql = `DELETE from orders WHERE id=$1 RETURNING * `;
+      const values = [id];
+      const result = await db.query(sql, values);
+      conn.release();
+      return result.rows[0];
+    } catch (e) {
+      throw new Error(`Cannot delete order from ${this.table}`);
+    }
+  }
 }
+
 export default OrdersModel;
