@@ -21,7 +21,16 @@ These are the notes from a meeting with the frontend developer that describe wha
 - HTTP ```POST```
 - Endpoint ```/user```
 
-#### 1.4 Authenticate
+#### 1.4 Update 
+- HTTP ```PATCH```
+- Endpoint ```/user/:id```
+- Need request body
+
+#### 1.5 Delete
+- HTTP ```DELETE```
+- Endpoint ```/user/:id```
+- Query ```user id```
+#### 1.6 Authenticate
 - HTTP ```POST```
 - Endpoint ```/authenticate```
 - Query ```email``` and ``password``
@@ -40,6 +49,16 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### 2.3 Create
 - HTTP ```POST```
 - Endpoint ```/products```
+
+#### 2.4 Update
+- HTTP ```PATCH```
+- Endpoint ```/products/:id```
+- Need request body
+
+#### 2.5 Delete
+- HTTP ```DELETE```
+- Endpoint ```/products/:id```
+- Query ```product id```
 ***
 ### 3- Order
 
@@ -55,6 +74,16 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### 3.3 Create
 - HTTP ```POST```
 - Endpoint ```/order```
+
+#### 3.4 Update
+- HTTP ```PATCH```
+- Endpoint ```/order/:id```
+- Need request body
+
+#### 3.5 Delete
+- HTTP ```DELETE```
+- Endpoint ```/order/:id```
+- Query ```product id```
 ***
 ## Database Schema
 
