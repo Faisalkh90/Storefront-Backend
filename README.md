@@ -46,7 +46,7 @@ DB_USERNAME= Your DB name
 DB_PASSWORD= Your DB password
 JWT_KEY= Your JWT key
 SALT_PASS= Your salt 
-SALT_ROUNDS= Your salt rouns
+SALT_ROUNDS= Your salt rounds
 ```
 and then run
 ``` 
