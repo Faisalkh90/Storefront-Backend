@@ -42,7 +42,6 @@ NODE_ENV=dev
 DB_HOST=localhost
 DB_NAME=store_dev
 DB_TEST_NAME =store_test
-DB_TEST_NAME=store_test
 DB_USERNAME= Your DB name
 DB_PASSWORD= Your DB password
 JWT_KEY= Your JWT key
