@@ -93,6 +93,63 @@ export const getOne = async (
   }
 };
 
+export const updateOne = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    let info = {
+      id: req.body.id,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: hash(String(req.body.password)),
+    };
+    console.log(info);
+    const user = await UserModel.updateOneUser(info);
+    console.log(user);
+    if (user != null) {
+      return res.send({
+        status: 201,
+        message: 'User updated',
+        user: user,
+      });
+    } else {
+      return res.send({
+        status: 404,
+        message: `Cannot found user: ${req.params.id}`,
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const deleteOne = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    console.log(req.params.id, typeof req.params.id);
+    const user = await UserModel.deleteUser(req.params.id);
+    if (user != null) {
+      return res.send({
+        status: 201,
+        message: 'User deleted',
+        user: user,
+      });
+    } else {
+      return res.send({
+        status: 404,
+        message: `Cannot found user: ${req.params.id}`,
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
 export const authenticateUser = async (
   req: express.Request,
   res: express.Response,

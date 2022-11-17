@@ -2,10 +2,11 @@ import Common from '../../utils/common';
 import { IUser } from './user.interfaces';
 import bcrypt from 'bcrypt';
 import { config } from '../../../config/sequelize';
+import db from '../../database';
+
 export class UserModel {
   static table: string = 'users';
   //create user
-
   static async createUser(user: object): Promise<IUser | null> {
     try {
       const sql = await Common.dbInsertion(this.table, user);
@@ -20,6 +21,7 @@ export class UserModel {
     }
   }
 
+  //get all user in database
   static async getAllUsers(): Promise<IUser[]> {
     try {
       const selector = ['id', 'firstname', 'lastname', 'email', 'created_at'];
@@ -30,6 +32,7 @@ export class UserModel {
     }
   }
 
+  //get one user by id
   static async getOneUser(id: string): Promise<IUser | null> {
     try {
       const selector = ['id', 'firstname', 'lastname', 'email', 'created_at'];
@@ -44,6 +47,44 @@ export class UserModel {
     }
   }
 
+  static async updateOneUser(user: IUser): Promise<IUser> {
+    try {
+      console.log('result1');
+      const conn = await db.connect();
+      const sql =
+        'UPDATE users SET firstname =$1, lastname =$2 , email =$3 , password =$4 WHERE id =$5 RETURNING id , firstname , lastname , email , created_at';
+      console.log('result3');
+      const values = [
+        user.firstname,
+        user.lastname,
+        user.email,
+        user.password,
+        user.id,
+      ];
+      //The password is hashed in userController before save it
+      const result = await db.query(sql, values);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Cannot update user from table : ${this.table}`);
+    }
+  }
+
+  static async deleteUser(id: string): Promise<IUser> {
+    try {
+      const conn = await db.connect();
+      const sql =
+        'DELETE from users WHERE id =$1 RETURNING firstname , lastname , email , created_at';
+      const values = [id];
+      const result = await db.query(sql, values);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(
+        `Cannot delete user id : ${id} from table : ${this.table}`
+      );
+    }
+  }
   // authenticate user by passing email and password
   static async authenticate(
     email: string,
