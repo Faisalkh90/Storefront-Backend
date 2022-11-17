@@ -1,5 +1,7 @@
 import Common from '../../utils/common';
 import { IProduct } from './productType';
+import db from '../../database';
+
 export class ProductsModel {
   static table: string = 'product';
 
@@ -43,15 +45,40 @@ export class ProductsModel {
     }
   }
 
-  // static async updateOneProduct(id: string): Promise<IProduct[]> {
-  //   try {
-  //     const selector = ['id', 'name', 'price'];
-  //     const result = await Common.update(ProductsModel.table, { id }, selector);
-  //     console.log(result);
-  //     return result as unknown as IProduct[];
-  //   } catch (e) {
-  //     throw new Error(`Cannot get id ${id} product from ${this.table}`);
-  //   }
-  // }
+  // update product
+  static async updateOneProduct(product: IProduct): Promise<IProduct> {
+    try {
+      const conn = await db.connect();
+      const sql = `UPDATE product SET name =$1 , price=$2 , description =$3 WHERE id = $4 RETURNING *`;
+      const values = [
+        product.name,
+        product.price,
+        product.description,
+        product.id,
+      ];
+      const result = await db.query(sql, values);
+
+      conn.release();
+      return result.rows[0];
+    } catch (e) {
+      throw new Error(`Cannot get update product from : ${this.table}`);
+    }
+  }
+
+  //delete specific products
+  static async deleteProduct(id: string): Promise<IProduct> {
+    try {
+      const conn = await db.connect();
+      const sql = 'DELETE from product WHERE id =$1 RETURNING *';
+      const values = [id];
+      const result = await db.query(sql, values);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(
+        `Cannot delete product id : ${id} from table : ${this.table}`
+      );
+    }
+  }
 }
 export default ProductsModel;

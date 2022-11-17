@@ -67,7 +67,7 @@ export const getOneProduct = async (
     } else {
       return res.send({
         status: 404,
-        message: `Cannot found id: ${req.params.id}`,
+        message: `Cannot found products id: ${req.params.id}`,
       });
     }
   } catch (e) {
@@ -75,26 +75,50 @@ export const getOneProduct = async (
   }
 };
 
-// export const updateOneProduct = async (
-//   req: express.Request,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) => {
-//   try {
-//     const product = await ProductModel.updateOneProduct(req.params.id);
-//     if (product) {
-//       return res.send({
-//         status: 201,
-//         message: 'Product Updated',
-//         item: product,
-//       });
-//     } else {
-//       return res.send({
-//         status: 404,
-//         message: `Cannot found id: ${req.params.id}`,
-//       });
-//     }
-//   } catch (e) {
-//     next(e);
-//   }
-// };
+export const updateOneProduct = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const product = await ProductModel.updateOneProduct(req.body);
+    if (product) {
+      return res.send({
+        status: 201,
+        message: 'Product Updated',
+        item: product,
+      });
+    } else {
+      return res.send({
+        status: 404,
+        message: `Cannot found product id: ${req.params.id}`,
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const deleteOneProduct = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const product = await ProductModel.deleteProduct(req.params.id);
+    if (product) {
+      return res.send({
+        status: 201,
+        message: 'Product deleted',
+        item: product,
+      });
+    } else {
+      return res.send({
+        status: 404,
+        message: `Cannot found product id: ${req.params.id}`,
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+};
