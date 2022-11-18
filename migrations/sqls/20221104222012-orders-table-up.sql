@@ -1,4 +1,4 @@
-create table  orders (
+create table if not exists orders (
     id serial primary key,
     quantity integer not null,
     status varchar(70) not null,
