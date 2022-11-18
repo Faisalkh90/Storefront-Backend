@@ -13,20 +13,24 @@ These are the notes from a meeting with the frontend developer that describe wha
 - endpoint ```/user```
 
 #### 1.2 Show 
+- token ```Required```
 - HTTP ```GET```
 - Endpoint ```/user/:id```
 - Query ```user id```
 
 #### 1.3 Create 
+- token ```Required```
 - HTTP ```POST```
 - Endpoint ```/user```
 
 #### 1.4 Update 
+- token ```Required```
 - HTTP ```PATCH```
 - Endpoint ```/user/:id```
 - Need request body
 
 #### 1.5 Delete
+- token ```Required```
 - HTTP ```DELETE```
 - Endpoint ```/user/:id```
 - Query ```user id```
@@ -47,15 +51,18 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Query ```products id```
 
 #### 2.3 Create
+- token ```Required```
 - HTTP ```POST```
 - Endpoint ```/products```
 
 #### 2.4 Update
+- token ```Required```
 - HTTP ```PATCH```
 - Endpoint ```/products/:id```
 - Need request body
 
 #### 2.5 Delete
+- token ```Required```
 - HTTP ```DELETE```
 - Endpoint ```/products/:id```
 - Query ```product id```
@@ -63,24 +70,29 @@ These are the notes from a meeting with the frontend developer that describe wha
 ### 3- Order
 
 #### 3.1 Index
+- token ```Required```
 - HTTP ```GET```
 - endpoint ```/order```
 
 #### 3.2 Show
+- token ```Required```
 - HTTP ```GET```
 - Endpoint ```/order/:id```
 - Query ```order id```
 
 #### 3.3 Create
+- token ```Required```
 - HTTP ```POST```
 - Endpoint ```/order```
 
 #### 3.4 Update
+- token ```Required```
 - HTTP ```PATCH```
 - Endpoint ```/order/:id```
 - Need request body
 
 #### 3.5 Delete
+- token ```Required```
 - HTTP ```DELETE```
 - Endpoint ```/order/:id```
 - Query ```product id```
