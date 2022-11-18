@@ -60,8 +60,13 @@ npm start
 By now you should be able to go to entry point `http://localhost:3000` 
 
 ### 4. Running the tests
+* For mac
 ```
-npm test
+test:mac
+```
+* For windows
+```
+test:win
 ```
 To test that everything is working as expected.
 ***
