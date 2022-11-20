@@ -49,11 +49,9 @@ export class UserModel {
 
   static async updateOneUser(user: IUser): Promise<IUser> {
     try {
-      console.log('result1');
       const conn = await db.connect();
       const sql =
         'UPDATE users SET firstname =$1, lastname =$2 , email =$3 , password =$4 WHERE id =$5 RETURNING id , firstname , lastname , email , created_at';
-      console.log('result3');
       const values = [
         user.firstname,
         user.lastname,

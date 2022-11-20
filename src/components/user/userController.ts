@@ -32,12 +32,12 @@ export const create = async (
     if (user) {
       //send the response
       res.send({
-        status: 201,
+        status: 200,
         message: 'user created successfully',
         user: user,
       });
     } else {
-      res.status(404).send({ message: `Something went wrong ${req.query}` });
+      res.status(400).send({ message: `Something went wrong ${req.query}` });
     }
   } catch (err) {
     next();
@@ -53,13 +53,13 @@ export const getAll = async (
     const users = await UserModel.getAllUsers();
     if (users.length > 0) {
       res.send({
-        status: 201,
+        status: 200,
         message: 'Users retrieved successfully',
         users: users,
       });
     } else {
       res.send({
-        status: 201,
+        status: 204,
         message: 'There are no users',
         users: users,
       });
@@ -78,13 +78,13 @@ export const getOne = async (
     const user = await UserModel.getOneUser(req.params.id);
     if (user != null) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'User founded',
         user: user,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found id: ${req.params.id}`,
       });
     }
@@ -106,18 +106,16 @@ export const updateOne = async (
       email: req.body.email,
       password: hash(String(req.body.password)),
     };
-    console.log(info);
     const user = await UserModel.updateOneUser(info);
-    console.log(user);
     if (user != null) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'User updated',
         user: user,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found user: ${req.params.id}`,
       });
     }
@@ -132,17 +130,16 @@ export const deleteOne = async (
   next: express.NextFunction
 ) => {
   try {
-    console.log(req.params.id, typeof req.params.id);
     const user = await UserModel.deleteUser(req.params.id);
     if (user != null) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'User deleted',
         user: user,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found user: ${req.params.id}`,
       });
     }
@@ -163,14 +160,14 @@ export const authenticateUser = async (
       // pass payload and signature that I made in .env
       const userToken = jwt.sign({ checkUser }, String(config.JWT));
       res.send({
-        status: 200,
+        status: 202,
         message: 'User verified successfully',
         //... means Inserting the elements together
         user: { ...checkUser, userToken },
       });
     } else {
       res.send({
-        status: 404,
+        status: 401,
         message: 'Unauthorized user , please try again',
       });
     }
