@@ -29,8 +29,28 @@ After Cloning the project, head inside the project folder and run
 ```
 npm install
 ```
+### 2. Set up the database
+1- connect to default postgres database `psql -U postgres`
 
-### 2.  DB Creation and Migrations
+2- in psql, run the following to create user : `CREATE USER shopping_user WITH PASSWORD 'password123';`
+
+3- In psql, run the following to create dev and test
+
+`CREATE DATABASE shopping;`
+`CREATE DATABASE shopping_test;`
+
+4- grant the dev database
+
+`\c shopping`
+
+`GRANT ALL PRIVILEGES ON DATABASE shopping To shopping_user;`
+
+5- grant the test database
+
+`\c shopping`
+
+`GRANT ALL PRIVILEGES ON DATABASE shopping_test To shopping_user;`
+### 3.  DB Creation and Migrations
 ```
 cp .env.example .env
 ```
@@ -38,7 +58,7 @@ Now, replace .env with your credentials
 ```
 # dev | test | prod
 NODE_ENV=dev
-
+PORT=3000
 DB_HOST=localhost
 DB_NAME=store_dev
 DB_TEST_NAME =store_test
@@ -53,13 +73,13 @@ and then run
 npm run migrate:up
 ```
 
-### 3. Starting the project
+### 4. Starting the project
 ```
 npm start
 ```
 By now you should be able to go to entry point `http://localhost:3000` 
 
-### 4. Running the tests
+### 5. Running the tests
 * For mac
 ```
 test:mac

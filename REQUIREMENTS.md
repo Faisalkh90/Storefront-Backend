@@ -96,6 +96,44 @@ These are the notes from a meeting with the frontend developer that describe wha
 - HTTP ```DELETE```
 - Endpoint ```/order/:id```
 - Query ```product id```
+
+
+### 4- order_products
+
+#### 4.1 Index
+- token ```Required```
+- HTTP ```GET```
+- endpoint ```/order_products```
+
+#### 4.2 Show
+- token ```Required```
+- HTTP ```GET```
+- Endpoint ```/order_products```
+- Query ```order_products id```
+
+#### 4.3 Create
+- token ```Required```
+- HTTP ```POST```
+- Endpoint ```/order_products```
+
+#### 4.4 Update
+- token ```Required```
+- HTTP ```PATCH```
+- Endpoint ```/order_products/:id```
+- Need request body
+
+#### 4.5 Delete
+- token ```Required```
+- HTTP ```DELETE```
+- Endpoint ```/order_products/:id```
+- Query ```product id```
+
+#### 4.5 Show by user id
+- token ```Required```
+- HTTP ```GET```
+- Endpoint ```/order_products/user/:id```
+- Query ```user id```
+
 ***
 ## Database Schema
 
@@ -132,7 +170,16 @@ create table product(
     description varchar(255)
 );
 ```
+### 4- Order-Product Schema
 
+```
+create table if not exists order_products(
+    id serial primary key,
+    quantity integer,
+    order_id bigint references orders(id),
+    product_id bigint references product(id)
+);
+```
 ***
 ## Data Shapes
 
@@ -166,5 +213,16 @@ create table product(
   name: string;
   price: number;
   description?: string;
+}
+```
+
+### 4- order_products 
+
+```
+export interface IOrderProducts {
+  id?: number;
+  quantity: number;
+  order_id: number;
+  product_id: number;
 }
 ```
