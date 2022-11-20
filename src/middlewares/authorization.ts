@@ -10,7 +10,6 @@ export const tokenAuthorization = (
   try {
     //get token
     const headerAuth = req.headers['authorization'];
-    console.log(headerAuth);
     if (headerAuth) {
       const token = headerAuth.split(' ')[1];
       const verifyToken = jwt.verify(token, String(config.JWT));
