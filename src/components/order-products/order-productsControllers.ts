@@ -13,12 +13,12 @@ export const create = async (
     if (orderProduct) {
       //send the response
       res.send({
-        status: 201,
+        status: 200,
         message: 'Order Product created successfully',
         Item: orderProduct,
       });
     } else {
-      res.status(404).send({ message: `Something went wrong ${req.params}` });
+      res.status(400).send({ message: `Something went wrong ${req.params}` });
     }
   } catch (e) {
     next(e);
@@ -35,13 +35,13 @@ export const getAllOrderProducts = async (
     //check if empty
     if (orderProduct?.length > 0) {
       res.send({
-        status: 201,
+        status: 200,
         message: 'Order product retrieved successfully',
         items: orderProduct,
       });
     } else {
       res.send({
-        status: 201,
+        status: 204,
         message: 'There are no products',
       });
     }
@@ -61,13 +61,13 @@ export const getOneOrderProduct = async (
     );
     if (orderProduct) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Order product founded',
         item: orderProduct,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found order products id: ${req.params.id}`,
       });
     }
@@ -87,13 +87,13 @@ export const updateOne = async (
     );
     if (orderProduct) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Order product updated successfully',
         item: orderProduct,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found order product id: ${req.params.id}`,
       });
     }
@@ -113,13 +113,13 @@ export const deleteOne = async (
     );
     if (orderProduct) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Order product deleted',
         item: orderProduct,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found order product id: ${req.params.id}`,
       });
     }
