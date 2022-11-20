@@ -14,12 +14,12 @@ export const createProduct = async (
     if (product) {
       //send the response
       res.send({
-        status: 201,
+        status: 200,
         message: 'Product created successfully',
         Item: product,
       });
     } else {
-      res.status(404).send({ message: `Something went wrong ${req.params}` });
+      res.status(400).send({ message: `Something went wrong ${req.params}` });
     }
   } catch (e) {
     next(e);
@@ -36,13 +36,13 @@ export const getAllProducts = async (
     //check if empty
     if (products?.length > 0) {
       res.send({
-        status: 201,
+        status: 200,
         message: 'Products retrieved successfully',
         items: products,
       });
     } else {
       res.send({
-        status: 201,
+        status: 204,
         message: 'There are no products',
       });
     }
@@ -60,13 +60,13 @@ export const getOneProduct = async (
     const product = await ProductModel.getOneProduct(req.params.id);
     if (product) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Product founded',
         item: product,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found products id: ${req.params.id}`,
       });
     }
@@ -84,13 +84,13 @@ export const updateOneProduct = async (
     const product = await ProductModel.updateOneProduct(req.body);
     if (product) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Product Updated',
         item: product,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found product id: ${req.params.id}`,
       });
     }
@@ -108,13 +108,13 @@ export const deleteOneProduct = async (
     const product = await ProductModel.deleteProduct(req.params.id);
     if (product) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Product deleted',
         item: product,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found product id: ${req.params.id}`,
       });
     }

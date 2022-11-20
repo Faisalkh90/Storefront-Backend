@@ -14,12 +14,12 @@ export const create = async (
     if (order) {
       //send the response
       res.send({
-        status: 201,
+        status: 200,
         message: 'order created successfully',
         Item: order,
       });
     } else {
-      res.status(404).send({
+      res.status(400).send({
         message: `Something went wrong in the query, please try again`,
       });
     }
@@ -38,13 +38,13 @@ export const getOne = async (
     const orders = await orderModel.getOneOrder(req.params.id);
     if (orders) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Order founded',
         item: orders,
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found id: ${req.params.id}`,
       });
     }
@@ -64,14 +64,14 @@ export const getOneByUser = async (
     console.log(orders);
     if (orders.length > 0) {
       return res.send({
-        status: 201,
+        status: 200,
         message: 'Order founded',
         item: orders,
         user: await UserModel.getOneUser(req.params.id),
       });
     } else {
       return res.send({
-        status: 404,
+        status: 406,
         message: `Cannot found id: ${req.params.id}`,
       });
     }
@@ -90,13 +90,13 @@ export const getAll = async (
     const orders = await OrdersModel.getAllOrders();
     if (orders?.length > 0) {
       res.send({
-        status: 201,
+        status: 200,
         message: 'Orders retrieved successfully',
         items: orders,
       });
     } else {
       res.send({
-        status: 201,
+        status: 204,
         message: 'There is no orders',
       });
     }
@@ -114,13 +114,13 @@ export const updateOneOrder = async (
     const orders = await OrdersModel.updateOrder(req.body);
     if (orders) {
       res.send({
-        status: 201,
+        status: 200,
         message: 'Orders updated successfully',
         items: orders,
       });
     } else {
       res.send({
-        status: 201,
+        status: 406,
         message: 'Cannot update order',
       });
     }
@@ -138,13 +138,13 @@ export const deleteOneOrder = async (
     const orders = await OrdersModel.deleteOrder(req.params.id);
     if (orders) {
       res.send({
-        status: 201,
+        status: 200,
         message: 'Orders deleted successfully',
         items: orders,
       });
     } else {
       res.send({
-        status: 201,
+        status: 406,
         message: 'Cannot delete order',
       });
     }
