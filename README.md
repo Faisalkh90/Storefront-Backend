@@ -1,12 +1,26 @@
+
 # Storefront Backend Project
 
-
+***
 
 ## Project Summary
 ***
 We will be developing a Node JS application that will connect to a Postgres (SQL) database, and I will construct the database, tables, and columns to meet the project's needs. The database will be used to store user information like as names, email addresses, passwords, and so on, so that they may log in to the application using JWT. I designed a RESTful API for the frontend developer to use. In addition, I wrote tests, encrypted user information, and provided tokens for inclusion into the frontend.
+
+![](../../Downloads/store-frontend.png)
 ***
 
+## What I learned 
+- Handling Error
+- Handling environment variables
+- Connecting Node to a Postgres Database
+- Migration
+- Models and Create Route
+- CRUD Operation for Route
+- Password hash creation and validation with Bcrypt
+- Add Validate Token Middle ware
+- Add unit testing for Models and Auth
+***
 ## Technologies and tools
 - Typescript 
 - db-migrate 
