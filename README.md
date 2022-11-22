@@ -20,6 +20,7 @@ I will developing a Node JS application that will connect to a Postgres (SQL) da
 - Password hash creation and validation with Bcrypt
 - Add Validate Token Middle ware
 - Add unit testing for Models and Auth
+- JWT
 ***
 ## Technologies and tools
 - Typescript 
