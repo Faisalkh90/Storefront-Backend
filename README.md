@@ -5,9 +5,20 @@
 
 ## Project Summary
 
-I will developing a Node JS application that will connect to a Postgres (SQL) database, and I will construct the database, tables, and columns to meet the project's needs. The database will be used to store user information like as names, email addresses, passwords, and so on, so that they may log in to the application using JWT. I designed a RESTful API for the frontend developer to use. In addition, I wrote tests, encrypted user information, and provided tokens for inclusion into the frontend.
+I will developing a Node JS application that will connect to a Postgres (SQL) database, and I will construct the database, tables, and columns to meet the project's needs. The database will be used to store user information like as names, email addresses, passwords, and so on, so that they may log in to the application using JWT. I designed a RESTful API for the frontend developer to use. In addition, I wrote tests, encrypted user information, and provided tokens for inclusion into the frontend. 
+
+The API will do the following:
+- Allow products to be created and stored in a database
+- Allow users to sign up and sign in
+- Require users to be signed in to perform certain actions
+- Allow users to create orders and add products to orders
+
+
+
 
 ![](img/store-frontend.png)
+
+
 ***
 
 ## What I learned 
